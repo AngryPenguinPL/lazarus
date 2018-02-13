@@ -1,4 +1,0 @@
-# We really don't need to strip some stuff
-addFilter("E: unstripped-binary-or-object")
-# Keep examples
-addFilter("E: devel-file-in-non-devel-package")
