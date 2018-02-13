@@ -1,0 +1,33 @@
+diff --git a/lazarus/Makefile.fpc b/lazarus/Makefile.fpc
+index a190b53..ef95ca9 100644
+--- a/lazarus/Makefile.fpc
++++ b/lazarus/Makefile.fpc
+@@ -20,7 +20,7 @@ files=$(wildcard *$(OEXT)) $(wildcard *$(PPUEXT)) $(wildcard *$(RSTEXT)) $(wildc
+ 
+ [install]
+ fpcpackage=n
+-basedir=share/lazarus
++basedir=lib/lazarus
+ 
+ [dist]
+ destdir=$(BASEDIR)/dist
+@@ -28,7 +28,7 @@ destdir=$(BASEDIR)/dist
+ [prerules]
+ RCPP?=$(strip $(firstword cpp$(SRCEXEEXT)))
+ #
+-LAZARUS_INSTALL_DIR=$(INSTALL_PREFIX)/share/lazarus
++LAZARUS_INSTALL_DIR=$(INSTALL_PREFIX)/$(_LIB)/lazarus
+ INSTALL_MAN_DIR=$(INSTALL_PREFIX)/share/man
+ ifneq ($(findstring $(OS_TARGET),win32 win64),)
+ LAZARUS_INSTALL_DIR=C:\lazarus
+@@ -256,8 +256,9 @@ installbase:
+ ifneq ($(findstring $(OS_TARGET),win32 win64),)
+ 
+ else
++	$(MKDIR) $(INSTALL_PREFIX)/$(_LIB)
++	$(MKDIR) $(INSTALL_PREFIX)/$(_LIB)/lazarus
+ 	$(MKDIR) $(INSTALL_PREFIX)/share
+-	$(MKDIR) $(INSTALL_PREFIX)/share/lazarus
+ 	$(MKDIR) $(INSTALL_PREFIX)/share/applications
+ 	$(MKDIR) $(INSTALL_PREFIX)/share/pixmaps
+ 	$(MKDIR) $(INSTALL_PREFIX)/share/mime/packages

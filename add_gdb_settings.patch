@@ -1,0 +1,18 @@
+--- ./lazarus/tools/install/linux/environmentoptions.xml.orig	2012-08-28 17:38:35.000000000 +0000
++++ ./lazarus/tools/install/linux/environmentoptions.xml	2012-10-12 12:33:19.000000000 +0000
+@@ -31,5 +31,15 @@
+         <Item2 Value="/var/tmp/"/>
+       </History>
+     </TestBuildDirectory>
++    <DebuggerFilename Value="/usr/bin/gdb">
++      <History Count="3">
++        <Item1 Value="/usr/bin/gdb"/>
++        <Item2 Value="/usr/local/bin/gdb"/>
++        <Item3 Value="/opt/fpc/gdb"/>
++      </History>
++    </DebuggerFilename> 
++    <Debugger Class="TGDBMIDebugger" EventLogLineLimit="100">
++      <WatchesDlg ColumnNameWidth="-1" ColumnValueWidth="-1"/>
++    </Debugger>
+   </EnvironmentOptions>
+ </CONFIG>

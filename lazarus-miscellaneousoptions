@@ -1,0 +1,109 @@
+#!/bin/bash
+#
+# This script is distributed under terms of GPLv3 or later
+# Copyright (C) AlexL <loginov.alex.valer@gmail.com>, 2013
+#
+# This is a simple script, which creates /etc/lazarus/miscellaneousoptions.xml
+# Config /etc/lazarus/miscellaneousoptions.xml is neaded for rebuild lazarus under root/user
+# and after rebuild to save all additional components, which were installed before.
+
+if [ ! -f "/usr/bin/lazarus-ide" ]
+then
+  echo "You have no /usr/bin/lazarus-ide, please install lazarus"
+  exit 0
+fi
+
+if [ -d "/usr/lib64/lazarus" ]
+then
+  ARCH=lib64
+else
+  ARCH=lib
+fi
+
+# determine type for compiled IDE
+#IDETYPE=`strings $LazarusDir/lazarus|grep qtwidgets`
+IDETYPE=`ldd /usr/bin/lazarus-ide|grep libQt4Pas`
+if [ "$IDETYPE" = "" ]
+then
+  IDETYPE=gtk2
+  echo IDETYPE: $IDETYPE
+else
+  IDETYPE=qt4
+  echo IDETYPE: $IDETYPE
+fi
+
+if [ ! -f "/etc/lazarus/extra_lpk_$IDETYPE.conf" ]
+then
+  echo "There is no /etc/lazarus/extra_lpk_$IDETYPE.conf, you don't need to run script lazarus-miscellaneousoptions"
+  exit 0
+fi
+
+if [ ! "$USER" = "root" ]
+then
+  echo "You must be root for lazarus-miscellaneousoptions"
+  exit 0
+fi
+
+echo "Starting script lazarus-miscellaneousoptions"
+if [ -f "/etc/lazarus/miscellaneousoptions.xml" ]
+then
+  echo "Current file /etc/lazarus/miscellaneousoptions.xml:"
+  cat /etc/lazarus/miscellaneousoptions.xml
+else
+  echo "There is no /etc/lazarus/miscellaneousoptions.xml, will be created."
+fi
+
+echo '<?xml version="1.0"?>' > /etc/lazarus/miscellaneousoptions.xml
+echo '<CONFIG>' >> /etc/lazarus/miscellaneousoptions.xml
+echo '  <MiscellaneousOptions>' >> /etc/lazarus/miscellaneousoptions.xml
+echo '    <Version Value="2"/>' >> /etc/lazarus/miscellaneousoptions.xml
+echo '    <BuildLazarusOptions>' >> /etc/lazarus/miscellaneousoptions.xml
+echo '      <StaticAutoInstallPackages Count="ў">' >> /etc/lazarus/miscellaneousoptions.xml
+
+i=0
+
+if [ "$ARCH" = "lib" ]
+then
+  for a in `cat /etc/lazarus/extra_lpk_$IDETYPE.conf|sed 's|$(LazarusDir)|/usr/lib/lazarus|g'`
+  do
+    echo "File: $a"
+    if [ -f "$a" ]
+    then
+      b=`cat $a |grep "<Name Value"|cut -d '"' --fields=2`
+      echo "Package name: $b"
+      i=$(($i+1))
+      echo "        <Item$i Value=\"$b\"/>" >> /etc/lazarus/miscellaneousoptions.xml
+    else
+      echo "Error: there is no file $a"
+    fi
+  done
+fi
+
+if [ "$ARCH" = "lib64" ]
+then
+  for a in `cat /etc/lazarus/extra_lpk_$IDETYPE.conf|sed 's|$(LazarusDir)|/usr/lib64/lazarus|g'`
+  do
+    echo "File: $a"
+    if [ -f "$a" ]
+    then
+      b=`cat $a |grep "<Name Value"|cut -d '"' --fields=2`
+      echo "Package name: $b"
+      i=$(($i+1))
+      echo "        <Item$i Value=\"$b\"/>" >> /etc/lazarus/miscellaneousoptions.xml
+    else
+      echo "Error: there is no file $a"
+    fi
+  done
+fi
+
+echo '      </StaticAutoInstallPackages>' >> /etc/lazarus/miscellaneousoptions.xml
+echo '    </BuildLazarusOptions>' >> /etc/lazarus/miscellaneousoptions.xml
+echo '  </MiscellaneousOptions>' >> /etc/lazarus/miscellaneousoptions.xml
+echo '</CONFIG>' >> /etc/lazarus/miscellaneousoptions.xml
+
+sed -i -e "s|ў|$i|g" /etc/lazarus/miscellaneousoptions.xml
+
+echo "File /etc/lazarus/miscellaneousoptions.xml was updated."
+echo "Current file /etc/lazarus/miscellaneousoptions.xml:"
+cat /etc/lazarus/miscellaneousoptions.xml
+echo "Script lazarus-miscellaneousoptions was finished."
