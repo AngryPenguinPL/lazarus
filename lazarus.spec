@@ -3,7 +3,7 @@ Name:		lazarus
 Version:	1.8.0
 Release:	1
 # GNU Classpath style exception, see COPYING.modifiedLGPL
-License:	GPLv2+ and MPLv1.1 and LGPLv2+ with exceptions
+License:	LGPLv2+
 Group:		Development/Pascal
 Url:		http://www.lazarus-ide.org/
 # Source0:	https://sourceforge.net/projects/lazarus/files/Lazarus%20Zip%20_%20GZip/Lazarus%201.6.4/lazarus-1.6.4-0.tar.gz/download
