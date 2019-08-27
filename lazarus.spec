@@ -1,18 +1,18 @@
 Summary:	Lazarus Component Library and IDE for Freepascal
 Name:		lazarus
-Version:	1.8.0
+Version:	2.0.4
 Release:	1
 # GNU Classpath style exception, see COPYING.modifiedLGPL
 License:	LGPLv2+
 Group:		Development/Pascal
 Url:		http://www.lazarus-ide.org/
-# Source0:	https://sourceforge.net/projects/lazarus/files/Lazarus%20Zip%20_%20GZip/Lazarus%201.6.4/lazarus-1.6.4-0.tar.gz/download
-Source0:	%{name}-%{version}.tar.gz
+Source0:	https://download.sourceforge.net/lazarus/%{name}-%{version}.tar.gz
 Source1:	lazarus-miscellaneousoptions
 Source10:	lazarus.rpmlintrc
 Patch0:		lazarus-1.4.4-makefile.patch
 Patch1:		lazarus-1.4.4-desktop.patch
 Patch3:		add_gdb_settings.patch
+
 BuildRequires:	desktop-file-utils
 BuildRequires:	fpc >= 2.6.4
 BuildRequires:	fpc-src >= 2.6.4
@@ -20,6 +20,7 @@ BuildRequires:	gdb
 BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gtk+-2.0)
+
 Requires:	binutils
 Requires:	fpc >= 2.6.4
 Requires:	fpc-src >= 2.6.4
