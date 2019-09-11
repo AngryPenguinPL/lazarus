@@ -49,12 +49,6 @@ component library - LCL, which is also included in this package.
 %config(noreplace) %{_sysconfdir}/lazarus/environmentoptions.xml
 %{_mandir}/*/*
 
-%postun
-if [ $1 = 0 ]
-then
-rm -rf %{_libdir}/%{name}
-fi
-
 #----------------------------------------------------------------------------
 
 %prep
@@ -71,7 +65,6 @@ pushd tools
 find install -depth -type d ! \( -path "install/linux/*" -o -path "install/linux" -o -path "install" \) -exec rm -rf '{}' \;
 popd
 
-export FPCDIR=%{_datadir}/fpcsrc/
 fpcmake -Tall
 
 MAKEOPTS="-gl -gw -Fl/usr/%{_lib}"
