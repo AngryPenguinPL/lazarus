@@ -9,13 +9,13 @@ Url:		http://www.lazarus-ide.org/
 Source0:	https://download.sourceforge.net/lazarus/%{name}-%{version}.tar.gz
 Source1:	lazarus-miscellaneousoptions
 Source10:	lazarus.rpmlintrc
-Patch0:		lazarus-1.4.4-makefile.patch
+#Patch0:		lazarus-1.4.4-makefile.patch
 #Patch1:		lazarus-1.4.4-desktop.patch
-Patch3:		add_gdb_settings.patch
+#Patch3:		add_gdb_settings.patch
 
 BuildRequires:	desktop-file-utils
-BuildRequires:	fpc >= 2.6.4
-BuildRequires:	fpc-src >= 2.6.4
+BuildRequires:	fpc
+BuildRequires:	fpc-src
 BuildRequires:	gdb
 BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:	pkgconfig(glib-2.0)
@@ -59,9 +59,9 @@ fi
 
 %prep
 %setup -qc
-%patch0 -p1
+#patch0 -p1
 #patch1 -p1
-%patch3 -p0
+#patch3 -p0
 
 %build
 cd lazarus
