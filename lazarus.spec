@@ -59,7 +59,8 @@ component library - LCL, which is also included in this package.
 
 %build
 #export FPCDIR=~/usr/lib/fpc/3.0.4/
-export FPCDIR=~/usr/share/fpcsrc/
+#export FPCDIR=~/usr/share/fpcsrc/
+export FPCDIR=~/usr/lib64/fpc/3.0.4/
 cd lazarus
 # Remove the files for building debian-repositories
 rm -rf debian
