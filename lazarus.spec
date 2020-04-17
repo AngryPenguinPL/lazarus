@@ -1,6 +1,6 @@
 Summary:	Lazarus Component Library and IDE for Freepascal
 Name:		lazarus
-Version:	1.8.0
+Version:	2.0.8
 Release:	1
 # GNU Classpath style exception, see COPYING.modifiedLGPL
 License:	LGPLv2+
