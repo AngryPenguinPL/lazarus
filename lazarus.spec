@@ -70,12 +70,11 @@ popd
 
 export FPCDIR=%{_datadir}/fpcsrc/
 fpcmake -Tall
-
-MAKEOPTS="-gl -gw -Fl/usr/%{_lib}"
-
-make bigide OPT="$MAKEOPTS"
-make tools OPT="$MAKEOPTS"
-make lazbuild OPT="$MAKEOPTS"
+cd components
+fpcmake -Tall
+cd ..
+make bigide OPT='-gl -gw'
+make tools OPT='-gl -gw'
 
 # Add the ability to create gtk2-applications
 export LCL_PLATFORM=gtk2
