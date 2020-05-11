@@ -75,14 +75,6 @@ fpcmake -Tall
 cd ..
 make FPC=/usr/bin/fpc LCL_PLATFORM=gtk2 clean bigide
 
-# Add the ability to create gtk2-applications
-export LCL_PLATFORM=gtk2
-make packager/registration lazutils lcl codetools bigidecomponents OPT='-gl -gw'
-export LCL_PLATFORM=
-strip lazarus
-strip startlazarus
-strip lazbuild
-
 %install
 LAZARUSDIR=%{_libdir}/%{name}
 FPCDIR=%{_datadir}/fpcsrc/
