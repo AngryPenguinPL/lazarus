@@ -73,8 +73,7 @@ fpcmake -Tall
 cd components
 fpcmake -Tall
 cd ..
-make bigide OPT='-gl -gw'
-make tools OPT='-gl -gw'
+make FPC=/usr/bin/fpc LCL_PLATFORM=gtk2 clean bigide
 
 # Add the ability to create gtk2-applications
 export LCL_PLATFORM=gtk2
